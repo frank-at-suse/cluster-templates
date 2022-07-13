@@ -1,4 +1,5 @@
-type: kubevirt.io.virtualmachine
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
 metadata:
   namespace: iot-vm
   annotations:
