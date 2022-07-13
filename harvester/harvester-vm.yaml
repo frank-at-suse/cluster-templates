@@ -3,8 +3,6 @@ kind: VirtualMachine
 metadata:
   annotations:
     harvesterhci.io/vmRunStrategy: RerunOnFailure
-    kubevirt.io/latest-observed-api-version: v1
-    kubevirt.io/storage-observed-api-version: v1alpha3
     network.harvesterhci.io/ips: '[]'
   labels:
     harvesterhci.io/creator: harvester
@@ -27,13 +25,13 @@ spec:
           threads: 1
         devices:
           disks:
-          - bootOrder: 1
-            disk:
-              bus: virtio
-            name: disk-0
-          - disk:
-              bus: virtio
-            name: cloudinitdisk
+            - name: disk-0
+              disk:
+                bus: virtio
+              bootOrder: 1
+            - name: cloudinitdisk
+              disk:
+                bus: virtio
           inputs:
           - bus: usb
             name: tablet
@@ -53,9 +51,6 @@ spec:
           limits:
             cpu: "1"
             memory: 1Gi
-          requests:
-            cpu: 62m
-            memory: 682Mi
       evictionStrategy: LiveMigrate
       hostname: iot
       networks:
@@ -63,7 +58,12 @@ spec:
           networkName: harvester-networks/vlan70
         name: default
       volumes:
-      - name: disk-0
-        persistentVolumeClaim:
-      - cloudInitNoCloud:
-        name: cloudinitdisk
+        - name: disk-0
+          persistentVolumeClaim:
+            claimName: iot-disk-0-urbcc
+        - name: cloudinitdisk
+          cloudInitNoCloud:
+            secretRef:
+              name: iot-eeqee
+            networkDataSecretRef:
+              name: iot-eeqee
