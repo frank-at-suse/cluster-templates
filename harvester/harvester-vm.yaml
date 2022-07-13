@@ -62,7 +62,7 @@ spec:
         - name: cloudinitdisk
           cloudInitNoCloud:
             secretRef:
-              name: '[]'
+              name: []
             networkDataSecretRef:
-              name: '[]'
+              name: []
       accessCredentials: []
