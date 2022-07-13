@@ -1,0 +1,78 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  annotations:
+    harvesterhci.io/vmRunStrategy: RerunOnFailure
+    kubevirt.io/latest-observed-api-version: v1
+    kubevirt.io/storage-observed-api-version: v1alpha3
+    network.harvesterhci.io/ips: '[]'
+  labels:
+    harvesterhci.io/creator: harvester
+    harvesterhci.io/os: ubuntu
+  name: iot
+  namespace: iot-vm
+  resourceVersion: "1888465"
+  uid: c52b5991-d1b3-445d-89b9-1281b4643f7b
+spec:
+  runStrategy: RerunOnFailure
+  template:
+    metadata:
+      annotations:
+        harvesterhci.io/sshNames: '["s05891-ssh-keys/s05891-public-key"]'
+      creationTimestamp: null
+      labels:
+        harvesterhci.io/vmName: iot
+    spec:
+      domain:
+        cpu:
+          cores: 1
+          sockets: 1
+          threads: 1
+        devices:
+          disks:
+          - bootOrder: 1
+            disk:
+              bus: virtio
+            name: disk-0
+          - disk:
+              bus: virtio
+            name: cloudinitdisk
+          inputs:
+          - bus: usb
+            name: tablet
+            type: tablet
+          interfaces:
+          - bridge: {}
+            macAddress: d6:e8:2f:30:9b:19
+            model: virtio
+            name: default
+        features:
+          acpi:
+            enabled: true
+        machine:
+          type: q35
+        memory:
+          guest: 924Mi
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1Gi
+          requests:
+            cpu: 62m
+            memory: 682Mi
+      evictionStrategy: LiveMigrate
+      hostname: iot
+      networks:
+      - multus:
+          networkName: harvester-networks/vlan70
+        name: default
+      volumes:
+      - name: disk-0
+        persistentVolumeClaim:
+          claimName: iot-disk-0-8ppga
+      - cloudInitNoCloud:
+          networkDataSecretRef:
+            name: iot-0dkpd
+          secretRef:
+            name: iot-0dkpd
+        name: cloudinitdisk
