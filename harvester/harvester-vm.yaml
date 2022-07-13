@@ -44,7 +44,7 @@ spec:
                 bus: virtio
         resources:
           limits:
-            memory: 2048Gi
+            memory: 2Gi
             cpu: 2
         features:
           acpi:
