@@ -8,7 +8,6 @@ metadata:
     network.harvesterhci.io/ips: '[]'
   labels:
     harvesterhci.io/creator: harvester
-    harvesterhci.io/os: ubuntu
   name: iot
 spec:
   runStrategy: RerunOnFailure
