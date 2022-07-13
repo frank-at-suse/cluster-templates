@@ -64,5 +64,6 @@ spec:
         name: default
       volumes:
       - name: disk-0
+        persistentVolumeClaim:
       - cloudInitNoCloud:
         name: cloudinitdisk
