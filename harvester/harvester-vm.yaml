@@ -62,7 +62,5 @@ spec:
         - name: cloudinitdisk
           cloudInitNoCloud:
             secretRef:
-              name: ''
-            networkDataSecretRef:
-              name: ''
+              name: s05891-cloud-config/db
       accessCredentials: []
