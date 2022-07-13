@@ -62,3 +62,7 @@ spec:
       - multus:
           networkName: harvester-networks/vlan70
         name: default
+      volumes:
+      - name: disk-0
+      - cloudInitNoCloud:
+        name: cloudinitdisk
